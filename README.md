@@ -1,29 +1,30 @@
 # pdf_creator
 
-CLI що конвертує Markdown-файл у PDF. Парсить MD через пакет `markdown`
-(розширення: `fenced_code`, `tables`, `toc`, `sane_lists`), обгортає у
-мінімальний HTML і рендерить у PDF за допомогою WeasyPrint. Батьківська
-директорія MD-файлу передається як `base_url`, тож відносні посилання на
-зображення та інші ресурси резолвляться коректно.
+A CLI that converts a Markdown file to PDF. It parses MD via the
+`markdown` package (extensions: `fenced_code`, `tables`, `toc`,
+`sane_lists`), wraps it in a minimal HTML document, and renders it to
+PDF with WeasyPrint. The MD file's parent directory is passed as
+`base_url`, so relative references to images and other assets resolve
+correctly.
 
-## Стек
+## Stack
 
-- Менеджер пакетів/середовища: [uv](https://github.com/astral-sh/uv)
+- Package/environment manager: [uv](https://github.com/astral-sh/uv)
 - Python: 3.14
-- Залежності: `markdown`, `weasyprint`
+- Dependencies: `markdown`, `weasyprint`
 
-## Системна залежність: Pango
+## System dependency: Pango
 
-WeasyPrint підвантажує Pango/Cairo через FFI під час імпорту. На macOS:
+WeasyPrint loads Pango/Cairo via FFI at import time. On macOS:
 
 ```sh
 brew install pango
 ```
 
-Без цього навіть `from weasyprint import HTML` падає з
+Without it, even `from weasyprint import HTML` fails with
 `OSError: cannot load library 'libpango-1.0-0'`.
 
-## Використання
+## Usage
 
 ```sh
 uv sync
