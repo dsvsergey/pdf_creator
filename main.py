@@ -8,6 +8,11 @@ from weasyprint import HTML
 
 def convert(input_path: Path, output_path: Path) -> None:
     md_text = input_path.read_text(encoding="utf-8")
+    css_path = Path("style.css")
+    css_content = ""
+    if css_path.exists():
+        css_content = f"<style>{css_path.read_text(encoding='utf-8')}</style>"
+
     html_body = markdown.markdown(
         md_text,
         extensions=["fenced_code", "tables", "toc", "sane_lists"],
@@ -15,6 +20,7 @@ def convert(input_path: Path, output_path: Path) -> None:
     html_doc = (
         "<!DOCTYPE html><html><head>"
         f"<meta charset='utf-8'><title>{input_path.stem}</title>"
+        f"{css_content}"
         "</head><body>"
         f"{html_body}"
         "</body></html>"
